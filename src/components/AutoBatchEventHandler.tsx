@@ -1,11 +1,21 @@
 import { useState } from "react";
 
 const AutoBatchEventHandler = () => {
+  // イベントハンドラーでは、下記でステートを２つ更新しているが、このログは１回だけ出力される。
+  // 下記ステートをすべて更新してから、このコンポーネントRenderingログが呼ばれる。==>バッチ処理
+  console.log("AutoBatchEventHandler Rendered!");
+
   const [state1, setState1] = useState<number>(0);
   const [state2, setState2] = useState<number>(0);
 
   const onClickUpdateButton = () => {
+    // setStateは、引数に関数を持たせることができる。
+    // 直接下記のように値を更新しても問題ないが、
+    // バッチ処理に関して確認するため、今のstate1値に対して更新するという処理を書いた。
+    // setState1(state1 + 1);
+    console.log(state1);
     setState1((state1) => state1 + 1);
+    console.log(state1);
     setState2((state2) => state2 + 1);
   };
 
